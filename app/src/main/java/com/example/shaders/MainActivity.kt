@@ -5,18 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.shaders.rinkin.BasicSample
-import com.example.shaders.romain.Sample1
-import com.example.shaders.romain.Sample2
-import com.example.shaders.romain.Sample3
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import com.example.shaders.kinto.GlowButtonSample
+import com.example.shaders.rinkin.Sample1
 import com.example.shaders.romain.Sample4
-import com.example.shaders.timo.BasicSamples
-import com.example.shaders.timo.BoxGradientShaderExample
+import com.example.shaders.timo.ButtonShineScreen
 import com.example.shaders.timo.ExperimentSamples
 import com.example.shaders.timo.FlameScreen
-import com.example.shaders.timo.LoadingSpinner
-import com.example.shaders.timo.MovingHighlightShader
-import com.example.shaders.timo.NoiceBackgroundBox
+import com.example.shaders.timo.TransitionScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ExperimentSamples()
+            GlowButtonSample()
 
         }
     }

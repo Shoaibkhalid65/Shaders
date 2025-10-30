@@ -1,29 +1,23 @@
 package com.example.shaders.romain
 import android.graphics.RuntimeShader
-import android.graphics.RenderEffect
-import android.graphics.Shader
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asComposeRenderEffect
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.runtime.remember
-import androidx.compose.ui.geometry.Size
-import kotlin.math.min
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.intellij.lang.annotations.Language
 
 // snow sample
 @Composable
@@ -88,7 +82,6 @@ fun Sample4() {
 
     ){
         Box(
-
             modifier = Modifier
                 .size(200.dp)
                 .clip(RoundedCornerShape(16.dp))

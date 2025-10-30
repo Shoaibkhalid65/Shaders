@@ -2,32 +2,15 @@ package com.example.shaders.timo
 
 
 import android.graphics.RuntimeShader
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import org.intellij.lang.annotations.Language
 
 @Language("AGSL")
@@ -46,7 +29,7 @@ val shaderCode = """
     }
 """.trimIndent()
 
-@RequiresApi(33)
+
 fun RuntimeShader.setColorUniform(uniformName: String, color: Color) =
     setColorUniform(uniformName, color.toArgb())
 //setFloatUniform(uniformName, color.red, color.green, color.blue, color.alpha)
@@ -55,7 +38,7 @@ fun Modifier.backgroundShader(
     shaderSrc: String,
     background: Color? = null,
     primary: Color? = null
-): Modifier = if (Build.VERSION.SDK_INT >= 33) this.drawWithCache {
+): Modifier = this.drawWithCache {
     val shader = RuntimeShader(shaderSrc)
     val brush = ShaderBrush(shader)
     if (background != null) {
@@ -67,7 +50,7 @@ fun Modifier.backgroundShader(
     onDrawBehind {
         drawRect(brush)
     }
-} else if (background != null) this.background(background) else this
+}
 
 @Composable
 fun BackgroundShader(
@@ -87,89 +70,6 @@ fun BackgroundShader(
             if (primary != null) {
                 shader.setColorUniform("primary", primary)
             }
-            onDrawBehind {
-                drawRect(brush)
-            }
-        }
-    )
-
-}
-
-@Language("AGSL")
-val solidColor = """
-    half4 main(float2 fragCoord) {
-      return half4(1, 0, 0, 1);
-    }
-""".trimIndent()
-
-@Language("AGSL")
-val shaderCheckerBox2 = """
-    uniform float2 iScaling;
-    
-    vec3 color1 = vec3(0.1);
-    vec3 color2 = vec3(0.9);
-    
-    vec3 checkBoard(vec2 uv) {
-        vec2 id = floor(uv);
-        float w = fract((id.x + id.y)/2.) * 2.;
-        return mix(color1.rgb, color2.rgb, w);
-    }
-    half4 main(float2 fragCoord) {
-      return half4(checkBoard(fragCoord * iScaling), 1);
-    }
-""".trimIndent()
-
-fun Modifier.bgScaling(shaderSrc: String) = this.drawWithCache {
-    val shader = RuntimeShader(shaderSrc)
-    val x = 10f / size.width
-    val y = 10f / size.height
-    shader.setFloatUniform("iScaling", x, y)
-    val brush = ShaderBrush(shader)
-    onDrawBehind {
-        drawRect(brush)
-    }
-}
-
-
-fun Modifier.backgroundShaderScaling(shaderSrc: String): Modifier = this.drawWithCache {
-    val shader = RuntimeShader(shaderSrc)
-    val x = 10f / size.width
-    val y = 10f / size.height
-    shader.setFloatUniform("iScaling", x, y)
-    val brush = ShaderBrush(shader)
-    onDrawBehind {
-        drawRect(brush)
-    }
-}
-
-fun Modifier.bgDensityShader(shaderSrc: String) = composed {
-    val width = 400.dp
-    val dpPixel = with(LocalDensity.current) { width.toPx() }
-    drawWithCache {
-        val shader = RuntimeShader(shaderSrc)
-        // 10 checkerboard pattern per 400 dp
-        val s = 10f / dpPixel
-        shader.setFloatUniform("iScaling", s, s)
-        val brush = ShaderBrush(shader)
-        onDrawBehind {
-            drawRect(brush)
-        }
-    }
-}
-
-
-@Composable
-fun CompatShader(modifier: Modifier = Modifier, shaderSrc: String) {
-    val dpWidth = 393.dp
-    val dpPixel = with(LocalDensity.current) { dpWidth.toPx() }
-    val x = 10f / dpPixel
-    val y = x
-
-    Spacer(
-        modifier = modifier.drawWithCache {
-            val shader = RuntimeShader(shaderSrc)
-            shader.setFloatUniform("iScaling", x, y)
-            val brush = ShaderBrush(shader)
             onDrawBehind {
                 drawRect(brush)
             }
@@ -252,19 +152,13 @@ half4 main(vec2 fragcoord) {
 """.trimIndent()
 
 @Composable
-fun ExperimentSamples(){
-    var pixels by remember { mutableStateOf(Size.Zero) }
+fun ExperimentSamples() {
     Box(
-        modifier = Modifier.fillMaxSize().backgroundShader(shaderCode).onSizeChanged{
-            size ->
-            pixels= Size(size.width.toFloat() , size.height.toFloat())
-        },
-        contentAlignment = Alignment.Center
-    ){
-        Box(
-            modifier = Modifier.wrapContentSize()
-        ){
+        modifier = Modifier
+            .fillMaxSize()
+            .backgroundShader(shaderAOABackground, Color(0xFFf05053), Color(0xFFe1eec3))
 
-        }
+    ) {
+
     }
 }
