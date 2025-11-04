@@ -6,6 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -25,6 +27,7 @@ import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shaders.R
 import kotlinx.coroutines.delay
@@ -114,5 +117,22 @@ fun RainEffectSample(){
                 modifier = Modifier.gradientTextEffect2()
             )
         }
+    }
+}
+@Composable
+fun RainEffectBox(modifier: Modifier= Modifier){
+    Box(modifier = modifier.fillMaxWidth().height(300.dp).clip(MaterialTheme.shapes.extraLarge)) {
+        Image(
+            painter = painterResource(R.drawable.r1),
+            modifier = Modifier.matchParentSize(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Image(
+            painter = painterResource(R.drawable.r1),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.matchParentSize().gradientTextEffect2()
+        )
     }
 }

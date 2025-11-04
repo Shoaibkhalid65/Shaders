@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.tooling.preview.Preview
 import org.intellij.lang.annotations.Language
 
 @Language("AGSL")
@@ -150,13 +151,13 @@ half4 main(vec2 fragcoord) {
     return vec4(col, 1);
 }    
 """.trimIndent()
-
+@Preview(showBackground = true)
 @Composable
 fun ExperimentSamples() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .backgroundShader(shaderAOABackground, Color(0xFFf05053), Color(0xFFe1eec3))
+            .backgroundShader(shaderAOABackground, primary = Color(0xFF34e89e), background =  Color(0xFF0f3443))
 
     ) {
 

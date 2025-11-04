@@ -20,20 +20,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shaders.R
 import kotlinx.coroutines.delay
 
-// snow sample
-@Composable
-fun Sample4() {
-    val shaderCode = """
+val shaderCode = """
         uniform float2 iResolution;
         uniform float iTime;
 
@@ -51,7 +51,7 @@ fun Sample4() {
         }
 
         half4 main(float2 fragCoord) {
-            uv = fragCoord / iResolution.x;
+            uv = fragCoord / iResolution.xy;
 
             // ✅ Start with transparent background
             float3 col = float3(0.0);
@@ -62,12 +62,13 @@ fun Sample4() {
                 for (float j = 1.0; j <= _NUMFLAKES; j++) {
                     if (j > _NUMFLAKES / i) break;
 
-                    float size = 0.01 * i * (1.0 + rnd(j) / 2.0);
-                    float speed = size * 0.75 + rnd(i) / 1.5;
+                    float size = 0.013 * i * (1.0 + rnd(j) / 2.0);
+//                    float speed = size * 0.75 + rnd(i) / 1.5;
+                    float speed = (size * 0.75 + rnd(i) / 1.5);
                     float2 center;
                     center.x = -0.3 + rnd(j * i) * 1.4 + 0.1 * cos(iTime + sin(j * i));
-                    center.y = fract(sin(j) - speed * iTime) / 1.3;
-//                    center.y = 1.0 - fract(sin(j) + speed * iTime) / 1.3;
+//                    center.y = fract(sin(j) - speed * iTime) / 1.3;
+                      center.y = 1.0 - fract(sin(j) - speed * iTime);
 
                     float flake = (1.0 - i / _NUMSHEETS) * drawFlake(center, size);
 
@@ -86,6 +87,11 @@ fun Sample4() {
             return half4(col, alpha);
         }
     """.trimIndent()
+// snow sample
+@Preview(showBackground = true)
+@Composable
+fun Sample4() {
+
 
 
     val shader = remember { RuntimeShader(shaderCode) }
@@ -111,6 +117,14 @@ fun Sample4() {
 
     ) {
         Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(radius = 100.dp, edgeTreatment = BlurredEdgeTreatment.Rectangle),
+            painter = painterResource(R.drawable.rain_2),
+            contentScale = ContentScale.Crop,
+            contentDescription = "background image"
+        )
+        Image(
             painter = painterResource(R.drawable.a1),
             modifier = Modifier
                 .padding(24.dp)
@@ -134,7 +148,49 @@ fun Sample4() {
                     )
                 }
                 .background(shaderBrush)
-                .rotate(270f)
+
         ) { }
     }
+}
+
+@Composable
+fun SnowEffectSampleBox(modifier: Modifier= Modifier){
+    val shader = remember { RuntimeShader(shaderCode) }
+    var time by remember { mutableFloatStateOf(0f) }
+
+    // Animate time
+    LaunchedEffect(Unit) {
+        while (true) {
+            time += 0.014f // roughly 60 FPS
+            delay(16)
+        }
+    }
+    LaunchedEffect(time) {
+        shader.setFloatUniform("iTime", time)
+    }
+    val shaderBrush = ShaderBrush(shader)
+    Image(
+        painter = painterResource(R.drawable.a1),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(300.dp)
+            .clip(MaterialTheme.shapes.extraLarge),
+        contentDescription = null,
+        contentScale = ContentScale.Crop
+    )
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(300.dp)
+            .clip(MaterialTheme.shapes.extraLarge)
+            .onSizeChanged { size ->
+                shader.setFloatUniform(
+                    "iResolution",
+                    size.width.toFloat(),
+                    size.height.toFloat()
+                )
+            }
+            .background(shaderBrush)
+
+    ) { }
 }
