@@ -5,7 +5,7 @@ This repository documents my journey of exploring and practicing **Android Graph
 
 ---
 
-## 🚀 Overview
+## **🚀 Overview**
 
 Shaders are small programs that execute directly on the **GPU (Graphics Processing Unit)**, making them **highly efficient** in rendering complex visual effects without burdening the CPU.
 This efficiency makes shaders ideal for use in **real-time animations**, **custom backgrounds**, and **interactive graphics** — all while maintaining smooth app performance.
@@ -19,7 +19,7 @@ In this repository, I experimented with:
 
 ---
 
-## 💡 Using Runtime Shaders in Jetpack Compose
+## **💡 Using Runtime Shaders in Jetpack Compose**
 
 There are **two main ways** to integrate and apply shaders in **Jetpack Compose**:
 
@@ -57,7 +57,7 @@ Box(
 
 ---
 
-## ⚠️ Limitation
+## **⚠️ Limitation**
 
 > **Minimum API Level:** 33 (Android 13, Tiramisu)
 >
@@ -66,18 +66,18 @@ Box(
 
 ---
 
-## 🎥 Demo Video
+## **🎥 Demo Video**
 
 > 🎬 Watch the full demo to see all shader effects in action!
 
 
 ```
 
-
+```
 
 ---
 
-## 🧩 Demonstrated Shader Effects
+## **🧩 Demonstrated Shader Effects**
 
 Here are the shader effects showcased in the demo, along with their file locations in the project:
 
@@ -90,18 +90,18 @@ Here are the shader effects showcased in the demo, along with their file locatio
 
 ---
 
-## 🧠 What I Learned
+## **🧠 What I Learned**
 
-* Understanding **AGSL (Android Graphics Shading Language)** fundamentals.
-* Writing and structuring shader programs for use in Compose.
-* Using **`RuntimeShader`** and **`RenderEffect`** APIs effectively.
-* Creating **dynamic gradients**, **procedural textures**, and **animated effects**.
-* Balancing GPU rendering performance and UI responsiveness.
-* Applying shaders both as **background brushes** and **render effects**.
+* Understanding **AGSL (Android Graphics Shading Language)** fundamentals
+* Writing and structuring shader programs for use in Compose
+* Using **`RuntimeShader`** and **`RenderEffect`** APIs effectively
+* Creating **dynamic gradients**, **procedural textures**, and **animated effects**
+* Balancing GPU rendering performance and UI responsiveness
+* Applying shaders both as **background brushes** and **render effects**
 
 ---
 
-## 🛠️ Tech Stack
+## **🛠️ Tech Stack**
 
 * **Language:** Kotlin
 * **Framework:** Jetpack Compose
@@ -111,12 +111,8 @@ Here are the shader effects showcased in the demo, along with their file locatio
 
 ---
 
+## **🌟 Support**
 
-
-## 🌟 Support
-
-If you found this project useful, please give it a ⭐ — your support inspires more shader experiments in Jetpack Compose.
+If you found this project useful, **please give it a ⭐** — your support inspires more shader experiments in Jetpack Compose.
 
 ---
-
-
