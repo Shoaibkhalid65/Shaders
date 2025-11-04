@@ -71,9 +71,12 @@ Box(
 > 🎬 Watch the full demo to see all shader effects in action!
 
 
-```
 
-```
+
+https://github.com/user-attachments/assets/1e5d36ff-8d5f-423e-a75e-020128d2e63b
+
+
+
 
 ---
 
