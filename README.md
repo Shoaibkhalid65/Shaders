@@ -1,7 +1,7 @@
 # 🎨 Jetpack Compose Shaders Practice (AGSL)
 
 Shaders — *“programs that run on the GPU”* — are among the most powerful tools available for building visually captivating and efficient graphics.
-This repository documents my journey of exploring and practicing **Android Graphics Shading Language (AGSL)** within **Jetpack Compose**, covering everything from basic gradient creation to advanced animated visual effects.
+This repository documents my journey of exploring and practicing **Android Graphics Shading Language (AGSL)** within **Jetpack Compose**, covering everything from basic gradient creation to advanced animated visual effects
 
 ---
 
